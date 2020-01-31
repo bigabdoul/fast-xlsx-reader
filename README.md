@@ -1,6 +1,6 @@
 # fast-xlsx-reader
 
-`fast-xlsx-reader` is a node package based on the famous and awesome `xlsx`
+`fast-xlsx-reader` is a node package (https://npmjs.com/package/fast-xlsx-reader) based on the famous and awesome `xlsx`
 (https://npmjs.com/package/xlsx) package.
 
 It's used for reading row-by-row an Excel worksheet, and optionally writing
