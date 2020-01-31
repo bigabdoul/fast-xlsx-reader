@@ -1,0 +1,23 @@
+{
+  "name": "fast-xlsx-reader",
+  "version": "0.1.7",
+  "description": "Used for reading row-by-row an Excel worksheet.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "fast",
+    "sequential",
+    "row-by-row",
+    "xlsx",
+    "excel",
+    "sheet",
+    "reader"
+  ],
+  "author": "Abdourahamane Kaba",
+  "license": "MIT",
+  "dependencies": {
+    "xlsx": "^0.15.5"
+  }
+}
