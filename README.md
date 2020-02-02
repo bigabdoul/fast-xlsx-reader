@@ -23,7 +23,7 @@ $ npm i fast-xlsx-reader
 ## Usage
 
 ```JavaScript
-const path = require('path');
+const path = require("path");
 const excel = require("fast-xlsx-reader");
 const schema_file = require("./data/your-schema-for-excel-file-to-read.js");
 
@@ -38,7 +38,7 @@ const options = {
     input: input_file,
     output: output_file,  // can be a NodeJs WriteStream
     format: "json", // default and only built-in supported format for now
-    sheetname: 'sheet_to_read', // specify the name of the sheet you wanna read
+    sheetname: "sheet_to_read", // specify the name of the sheet you wanna read
     schema: schema_file, // see below for a sample schema file
     hasHeader: true,  // we think that the first row has a header (default)
     // useMemoryForItems: true,
@@ -70,44 +70,44 @@ Sample schema: `your-schema-for-excel-file-to-read.js` (whatever)
 
 ```JavaScript
 module.exports = {
-    'REGION_CODE': {
-        prop: 'rec'
+    "REGION_CODE": {
+        prop: "rec"
     },
-    'REGION': {
-        prop: 're'
+    "REGION": {
+        prop: "re"
     },
-    'CIRCLE_CODE': {
-        prop: 'cic'
+    "CIRCLE_CODE": {
+        prop: "cic"
     },
-    'CIRCLE': {
-        prop: 'ci'
+    "CIRCLE": {
+        prop: "ci"
     },
-    'COMMUNE_CODE': {
-        prop: 'coc'
+    "COMMUNE_CODE": {
+        prop: "coc"
     },
-    'COMMUNE': {
-        prop: 'co'
+    "COMMUNE": {
+        prop: "co"
     },
-    'CENTER_CODE': {
-        prop: 'cec'
+    "CENTER_CODE": {
+        prop: "cec"
     },
-    'CENTER': {
-        prop: 'ce'
+    "CENTER": {
+        prop: "ce"
     },
-    'BUREAU_CODE': {
-        prop: 'buc'
+    "BUREAU_CODE": {
+        prop: "buc"
     },
-    'BUREAU': {
-        prop: 'bu'
+    "BUREAU": {
+        prop: "bu"
     },
-    'MEN': {
-        prop: 'm'
+    "MEN": {
+        prop: "m"
     },
-    'WOMEN': {
-        prop: 'w'
+    "WOMEN": {
+        prop: "w"
     },
-    'TOTAL_VOTERS': {
-        prop: 'vo'
+    "TOTAL_VOTERS": {
+        prop: "vo"
     }
 }
 ```
@@ -116,16 +116,16 @@ The above schema maps the Excel WorkSheet's columns `REGION_CODE`, `REGION`, etc
 
 ```JavaScript
 {
-  rec: '01',
-  re: 'Region 01',
-  cic: '01',
-  ci: 'Circle 01',
-  coc: '01',
-  co: 'Commune 01',
-  cec: '01',
-  ce: 'Center 01',
-  buc: '001-001',
-  bu: 'Voting Bureau 001-001',
+  rec: "01",
+  re: "Region 01",
+  cic: "01",
+  ci: "Circle 01",
+  coc: "01",
+  co: "Commune 01",
+  cec: "01",
+  ce: "Center 01",
+  buc: "001-001",
+  bu: "Voting Bureau 001-001",
   m: 135,
   w: 110,
   vo: 245
@@ -136,34 +136,34 @@ You can optionally specify the type of each column if you want to do custom conv
 
 ```JavaScript
 {
-    'REGION_CODE': {
-        prop: 'rec',
+    "REGION_CODE": {
+        prop: "rec",
         type: Number
     },
-    'REGION': {
-        prop: 're'
+    "REGION": {
+        prop: "re"
     },
-    'CIRCLE_CODE': {
-        prop: 'cic',
+    "CIRCLE_CODE": {
+        prop: "cic",
         type: Number
     },
-    'CIRCLE': {
-        prop: 'ci'
+    "CIRCLE": {
+        prop: "ci"
     },
-    'COMMUNE_CODE': {
-        prop: 'coc',
+    "COMMUNE_CODE": {
+        prop: "coc",
         type: Number
     },
-    'DATE_CREATED': {
-        prop: 'dat',
+    "DATE_CREATED": {
+        prop: "dat",
         type: Date
     },
-    'CENTER_CODE': {
-        prop: 'cec',
+    "CENTER_CODE": {
+        prop: "cec",
         type: String
     },
-    'CENTER': {
-        prop: 'ce',
+    "CENTER": {
+        prop: "ce",
         type: String
     }
 }
@@ -195,7 +195,7 @@ $ npm install fast-xlsx-reader
 Under the `src` folder, create a file named `main.js` (or whatever), and paste the below usage code in it:
 
 ```JavaScript
-const path = require('path');
+const path = require("path");
 const excel = require("fast-xlsx-reader");
 const schema_file = require("./data/your-schema-for-excel-file-to-read.js");
 
@@ -208,7 +208,7 @@ const options = {
     input: input_file,
     output: output_file,
     format: "json",
-    sheetname: 'sheet_to_read',
+    sheetname: "sheet_to_read",
     schema: schema_file,
 
     // adding a 'cell' event handler can significantly slow down the reader
@@ -228,7 +228,7 @@ const options = {
         }
 
         // the 'w' property is the string representation
-        if (cell.w === '269') {
+        if (cell.w === "269") {
             // will work
         }
 
