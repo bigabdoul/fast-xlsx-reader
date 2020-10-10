@@ -1,6 +1,6 @@
 {
   "name": "fast-xlsx-reader",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Used for efficiently reading row-by-row an Excel worksheet.",
   "repository": {
     "type": "git",
