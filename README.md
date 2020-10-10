@@ -22,6 +22,109 @@ $ npm i fast-xlsx-reader
 
 ## Usage
 
+### New: Introducing `FastXlsxSheetReader`
+
+You can now create an instance of the new `FastXlsxSheetReader` class addition 
+and read rows at your own pace. This is an easier alternative of using the library
+with new capabilities. Here are some code snippets that show how it's done:
+
+```JavaScript
+const excel = require("fast-xlsx-reader");
+
+// Create an instance of the FastXlsxSheetReader class
+const reader = excel.createReader({
+    input: input_file
+});
+
+// log some metadata
+console.log('\nSheet properties:');
+console.log('-------------------')
+console.log(`Row start: \t${reader.startRow}`);
+console.log(`Column start: \t${reader.startCol}`);
+console.log(`Row end: \t${reader.endRow}`);
+console.log(`Column end: \t${reader.endCol}`);
+console.log(`Number of rows: ${reader.rowCount}`);
+console.log('');
+
+let row = reader.readNext();
+console.log(`Row #${reader.rowIndex + 1}: `, row);
+
+row = reader.readNext();
+console.log(`Row #${reader.rowIndex + 1}: `, row);
+
+// There're 2 ways to iterate over the rows:
+// 1st: readNext() returns a row
+while ((row = reader.readNext())) {
+    console.log(`Row #${reader.rowIndex + 1}: `, row);
+}
+
+console.log('\nReset the reader');
+reader.reset();
+
+// 2nd: moveNext() returns true or false
+while (reader.moveNext()) {
+    // use FastXlsxSheetReader.current property for the current row
+    console.log(`Row #${reader.rowIndex + 1}:`, reader.current);
+}
+
+console.log("\nReset and read next...");
+row = reader.reset().readNext();
+console.log(`Row #${reader.rowIndex + 1}: `, row);
+
+const startIndex = 3;
+let count = 4;
+const rows = reader.readMany(startIndex, count);
+console.log(`Read ${count} rows at once:`, rows);
+console.log('Read next:', reader.readNext());
+
+// with event callbacks
+reader.reset().oncell = (cell, col, row) => {
+    console.log(`Cell[${col}, ${row}] =`, cell);
+};
+
+// this event handler is required when calling readAll()
+reader.on("record", (data, index) => {
+    console.log(`\nThe above was row #${index + 1}:`, data);
+    console.log('');
+});
+
+// read 3 rows backwards starting at one row above the last (index -2)
+// (the last row is at index -1)
+count = 3;
+console.log(`Read ${count} rows backwards:`, reader.readMany(-2, count));
+
+// read cell
+let colidx = 3,
+    rowidx = 2;
+console.log(`Reading cell[${colidx}, ${rowidx}]:`, reader.readCell(colidx, rowidx));
+
+// To read all rows, make sure that the 'record' event handler is defined!
+console.log("Reading all rows...");
+
+// event raised before reading each row
+reader.on("beforerecord", (index) => {
+    console.log(`Reading row #${index + 1}`);
+});
+
+// pass true if you want to read backwards;
+// read all rows by using a 'record' callback (the previously registered
+// 'record' event handler is ignored)
+const rowCount = reader.readAll( /* backwards: */ false, (row, index) => {
+    index.toString();
+    console.log("Data", row);
+    console.log('');
+});
+
+console.log(`Done! ${rowCount} rows read.`);
+
+// clean up
+reader.destroy();
+
+// reader.reset().readNext(); // throws an error because we destroyed the reader
+```
+
+### Legacy usage with written output (file or WriteStream)
+
 ```JavaScript
 const path = require("path");
 const excel = require("fast-xlsx-reader");
@@ -64,7 +167,7 @@ const options = {
 excel.read(options);
 ```
 
-## Schema
+## Using a schema
 
 Sample schema: `your-schema-for-excel-file-to-read.js` (whatever)
 
