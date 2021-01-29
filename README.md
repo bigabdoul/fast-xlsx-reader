@@ -109,13 +109,51 @@ reader.on("beforerecord", (index) => {
 // pass true if you want to read backwards;
 // read all rows by using a 'record' callback (the previously registered
 // 'record' event handler is ignored)
-const rowCount = reader.readAll( /* backwards: */ false, (row, index) => {
+let rowCount = reader.readAll( /* backwards: */ false, (row, index) => {
     index.toString();
     console.log("Data", row);
     console.log('');
 });
 
 console.log(`Done! ${rowCount} rows read.`);
+console.log('-------------------');
+
+console.log("Reading Sheet2 backwards...");
+
+// load another worksheet and read all rows backwards
+reader.loadSheet("Sheet2").readAll(true);
+
+console.log('-------------------');
+console.log("Reading all sheets...");
+
+// remove 2 event callbacks (onbeforerecord, oncell)
+// using method chaining
+reader.off("beforerecord").oncell = undefined;
+
+let totalRowCount = 0;
+
+// read all sheets
+rowCount = reader.readAllSheets(/* classic function */ function(name) {
+
+    // inside a classic JavaScript function (NOT an arrow function)
+    // the 'this' keyword refers to the 'reader': this === reader (true)
+    console.log(`Reading ${name} (${this.rowCount} rows)...`.toUpperCase());
+    console.log();
+
+    totalRowCount += this.rowCount;
+
+}, /* arrow function */ (row, index) => {
+    console.log(`#${index + 1}`, row);
+
+    if ((index + 1) % 10 === 0) {
+        // returning true aborts the operation
+        return true;
+    }
+});
+
+// verify that not all rows have been read
+console.info(`Total rows in all worksheets: ${totalRowCount}`);
+console.info(`Rows read from all worksheets: ${rowCount}`);
 
 // clean up
 reader.destroy();
