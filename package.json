@@ -22,6 +22,6 @@
   "author": "Abdourahamane Kaba",
   "license": "MIT",
   "dependencies": {
-    "xlsx": "~0.15.5"
+    "xlsx": "~0.17.0"
   }
 }
